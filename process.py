@@ -48,9 +48,9 @@ for i in json_obj:
 
         print('Downloading ' + cp_title)
         for j in k['images']:
-            filename_t = str(url).split('/'):
+            filename_t = str(url).split('/')
             filename = filename_t[len(filename_t)-1]
-            if os.path.exists(title+'/'+cp_title+"/"+filename):
+            if os.path.exists(title+'/'+cp_title+'/'+filename):
                 continue
 
             t = Thread(target=download_img,args=[title+'/'+cp_title,j])
