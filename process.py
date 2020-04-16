@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-import psycopg2
 import requests
 import sys,json,os,re
 from threading import Thread
