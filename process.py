@@ -43,12 +43,14 @@ for i in json_obj:
         threads = []
         cp_title = k['title']
         cp_title = re.sub('[\/:*?"<>|]','_',cp_title)
+        if os.path.exists(title+'/'+k['title']):
+            cp_title = k['title']
         if not os.path.exists(title+'/'+cp_title):
             os.mkdir(title+'/'+cp_title)
 
         print('Downloading ' + cp_title)
         for j in k['images']:
-            filename_t = str(url).split('/')
+            filename_t = str(j).split('/')
             filename = filename_t[len(filename_t)-1]
             if os.path.exists(title+'/'+cp_title+'/'+filename):
                 continue
