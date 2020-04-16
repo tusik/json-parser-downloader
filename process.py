@@ -8,6 +8,7 @@ def download_img(path,url):
     r = requests.get(url, headers=headers)
     filename_t = str(url).split('/')
     filename = filename_t[len(filename_t)-1]
+    filename = re.sub('[\/:*?"<>|]','_',filename)
     with open(path+'/'+filename, 'wb') as f:
         f.write(r.content)
 
@@ -29,6 +30,7 @@ with open("export.json","r",encoding='utf-8') as data:
 
 for i in json_obj:
     title = i['title']
+    title = re.sub('[\/:*?"<>|]','_',title)
     if not os.path.exists(title):
         os.mkdir(title)
 
@@ -40,11 +42,17 @@ for i in json_obj:
     for k in i['chapters']:
         threads = []
         cp_title = k['title']
+        cp_title = re.sub('[\/:*?"<>|]','_',cp_title)
         if not os.path.exists(title+'/'+cp_title):
             os.mkdir(title+'/'+cp_title)
 
         print('Downloading ' + cp_title)
         for j in k['images']:
+            filename_t = str(url).split('/'):
+            filename = filename_t[len(filename_t)-1]
+            if os.path.exists(title+'/'+cp_title+"/"+filename):
+                continue
+
             t = Thread(target=download_img,args=[title+'/'+cp_title,j])
             t.start()
             threads.append(t)
